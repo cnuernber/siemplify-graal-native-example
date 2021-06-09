@@ -1,0 +1,24 @@
+{:paths ["src" "resources" "classes"]
+ :deps {http-kit/http-kit {:mvn/version "2.5.3"}
+        techascent/tech.ml.dataset {:mvn/version "6.00-beta-16"}
+        techascent/tech.ml.dataset.sql {:mvn/version "6.00-beta-7"}
+        org.postgresql/postgresql {:mvn/version "42.2.12"}
+        seancorfield/next.jdbc {:mvn/version "1.0.424"}}
+ :aliases
+ {:standalone
+  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.193"}}
+   :ns-default hf.depstar
+   :exec-fn hf.depstar/uberjar
+   :exec-args {:group-id "com.siemplify"
+               :artifact-id "example"
+               :version "1.00"
+               :sync-pom true
+               :aot true
+               :main-class siemplify.main
+               :jar "target/example.jar"
+               ;;Disable tensor code generation and ensure direct linking.
+               :jvm-opts ["-Dclojure.compiler.direct-linking=true"
+                          "-Dclojure.spec.skip-macros=true"
+                          "-Dtech.v3.datatype.graal-native=true"]}}
+
+  }}
